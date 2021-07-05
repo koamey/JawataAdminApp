@@ -1,0 +1,189 @@
+<ion-app *ngIf="sideMenuNames">
+  <ion-split-pane contentId="main">
+    <ion-menu contentId="main">
+      <ion-content>
+        <ion-list class="col">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of userDetails">
+            <div [routerDirection]="'root'" [routerLink]="[p.url]" (click)="CameraActionSheet()">
+              <div style="height: 180px;width: 180px;margin: 0 auto;position: relative;">
+                <ion-thumbnail style="height: 180px;width: 180px;">
+                  <img [src]="profilepic" onerror="this.onerror=null;this.src='assets/default.png';" (click)="CameraActionSheet()"
+                    style="height: 100%; width: 100%; border-radius: 50%; display: block;">
+                </ion-thumbnail>
+                <ion-icon [name]="p.icon"
+                  style="position: absolute; bottom: 0; left: 72%;  color: aliceblue; zoom: 2.5;">
+                </ion-icon>
+              </div>
+              <!-- <ion-icon  style="font-size: 5rem; color: white !important;" class="text-center sidebar-name" slot="start"
+                [name]="p.icon">
+              </ion-icon> -->
+
+              <ion-row>
+                <ion-col style="font-size:0.975rem; color: white !important; text-align: center;" class="sidebar-name">
+                  {{p.title}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col style="font-size: 0.875rem; color: white !important; padding-top: 0; text-align: center;"
+                  class="sidebar-name">
+                  {{p.emailid}}
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list class="sidemenucol">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of sideMenuPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" style="color: white;">
+              <ion-icon slot="start" [name]="p.icon" class="sidemnu-label"
+                style="color: #424242 !important;font-size: 1.3rem;margin-right: 1rem;"></ion-icon>
+              <ion-label style="font-size: 1rem !important;color: #424242 !important;">
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
+
+<ion-content *ngIf="showLoginForm">
+
+  <form [formGroup]="loginForm" (ngSubmit)="onClickLogin()" style="margin: 2rem 1.25rem 0rem 1.25rem !important;"
+    novalidate>
+
+    <ion-img class="image-logo" src="assets/Jawata-logo.png"></ion-img>
+
+    <ion-toolbar style="height: 3.58rem;">
+      <ion-title id="t1">
+        <b style="color: #000 !important;"> {{'Select Language' |translate}}</b>
+      </ion-title>
+    </ion-toolbar>
+    <div>
+      <ion-select
+        style="margin: 0rem !important;width: 100% !important;background: transparent !important;border-color: #c5c5c5 !important; font-size: 0.875rem;border: 0.08rem solid;border-radius:0.41rem;padding: 0.80rem 1.66rem;"
+        [(ngModel)]="selectedLanguage" (ionChange)="languageChanged($event.target.value)"
+        [ngModelOptions]="{standalone: true}">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="fr">French</ion-select-option>
+        <ion-select-option value="de">German</ion-select-option>
+        <ion-select-option value="es">Spanish</ion-select-option>
+        <ion-select-option value="hi">Hindi</ion-select-option>
+      </ion-select>
+    </div>
+    <ion-toolbar style="height: 3.58rem;">
+      <ion-title id="t1" style="color: black;">
+        <b style="color: #000 !important;"> {{ 'Email/Citizen ID' | translate }}</b>
+      </ion-title>
+    </ion-toolbar>
+    <div>
+      <ion-input type="text" maxlength="50" class="ion-padding-horizontal"
+        placeholder=" {{ 'Enter email/Citizen ID' | translate }}" name="text" clas="form-control"
+        formControlName="userID" [(ngModel)]="userIdVar" style="background-color: #DEE2E6;">
+      </ion-input>
+    </div>
+    <ion-label *ngIf="isSubmitted && errorControl.userID.errors?.required" class="text-danger" id="valid1"
+      style="margin-left: 0rem; font-size: 0.800rem;">
+      {{'Enter email/Citizen ID'|translate}}
+    </ion-label>
+    <ion-label *ngIf="isSubmitted && errorControl.userID.errors?.pattern" class="text-danger" id="valid1"
+      style="margin-left: 0rem; font-size: 0.800rem;">
+      {{'Enter valid email/Citizen ID'|translate}}
+    </ion-label>
+
+    <ion-toolbar style="height: 3.58rem;">
+      <ion-title id="t1" style="color: black;">
+        <b style="color: #000 !important;">{{'Password'|translate}}</b>
+      </ion-title>
+    </ion-toolbar>
+    <div>
+      <ion-input type="password" class="ion-padding-horizontal" placeholder="{{'Password'|translate}}" name="password"
+        clas="form-control" [(ngModel)]="passwordVar" formControlName="password" maxlength="50"
+        style="background-color: #DEE2E6;">
+      </ion-input>
+    </div>
+    <ion-label *ngIf="isSubmitted && errorControl.password.errors?.required" class="text-danger" id="valid1"
+      style="margin-left:0rem;   font-size: 0.800rem;">{{'Password is required'|translate}} </ion-label>
+
+    <div class="mt-4" style="margin-top: 0.5rem !important;">
+      <ion-checkbox style="vertical-align: middle;height: 1rem;" (ionChange)="onClickRememberMe($event.target.checked)"
+        [checked]="checked" id="chk" color="dark" style="color: black !important;"></ion-checkbox>
+      <b style="font-size: 0.800rem; color: #000 !important; "> {{'Remember Me'|translate}} &nbsp;
+
+        <a style="float: right; font-size: 0.800rem;padding-top: 0.33rem; font-weight: bold; color: #000 !important;"
+          (click)="onClickForgotPasword()">
+          {{'Forgot Password ?'|translate}} </a></b>
+    </div>
+
+    <div style="width: 100%;">
+      <div class="col-md-12 mt-4" style="padding: 0;">
+        <div class="m-form__group form-group text-center">
+          <button class="btn btn-dark btn-lg"
+            style="background: #343a40 !important;color: #fff !important;">{{'Submit'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ion-content>
+
+<ion-content *ngIf="forgotPassForm">
+
+  <form [formGroup]="forgotPassword" (ngSubmit)="SubmitForgotPassDetails()" style="margin:0;" novalidate>
+
+    <ion-header>
+      <ion-toolbar color="dark" color="primary">
+        <ion-buttons slot="start"
+          style="width: 100%;text-align: center;    padding: 1.16rem 0.83rem;font-size: 1rem; color: #fff !important;">
+          {{'Forgot Password ?' | translate}}
+        </ion-buttons>
+        <ion-list slot="end" style="background-color: transparent;    margin-right:0.41rem !important;">
+          <b style="color: #fff !important;">
+            <ion-icon slot="end" (click)="cancelForgotPassword()"
+              style="vertical-align:middle;font-size:1.7rem !important; color: #fff !important;" name="close">
+            </ion-icon>
+          </b>
+        </ion-list>
+      </ion-toolbar>
+    </ion-header>
+
+    <div class="form-input">
+      <ion-item
+        style="font-size: 0.875rem;    margin-top: 0.83rem;--highlight-background: #343a40;  --highlight-height: 1px;">
+        <ion-label><b style="color: #000 !important;">{{ 'Email' | translate }} </b> </ion-label>
+        <ion-input type="text" class="ion-padding-horizontal forgot-input" placeholder="{{ 'Email' | translate }}"
+          name="text" clas="form-control" formControlName="email" [(ngModel)]="emailID" maxlength="50"
+          style="font-size: 0.875rem;border: 0rem;padding-right: 0rem !important;text-align: right; color:#000 !important;background-color: #f1f1f1 !important;">
+        </ion-input>
+      </ion-item>
+    </div>
+
+    <div style="font-size: 0.875rem;margin-top: 0.3rem;padding-left: 1.25rem;" class="invalid-text">
+      <ion-label *ngIf="isSubmitted && errorControl2.email.errors?.required" class="text-danger" id="valid1"
+        style="margin-left:-0.3rem; font-size: 0.800rem;">
+        {{'Enter'|translate}}
+      </ion-label>
+
+      <ion-label *ngIf="isSubmitted && errorControl2.email.errors?.pattern" class="text-danger" id="valid1"
+        style="margin-left:-0.3rem; font-size: 0.800rem;">
+        {{'Enter'|translate}}
+      </ion-label>
+    </div>
+
+    <div style="font-size: 0.875rem;">
+      <ion-item style="font-size:0.875rem;    margin-top: 0.83rem;">
+        <ion-label style="font-size: 0.875rem;"><b style="color: #000 !important;">{{ 'Date of Birth' | translate }}
+          </b> </ion-label>
+        <ion-datetime class="forgot-input" style="font-size: 0.875rem;padding-right: 1.25rem; color: #000 !important;"
+          value={{todaysDate}} (ionChange)="onChangeDate($event.target.value)">
+        </ion-datetime>
+      </ion-item>
+    </div>
+
+    <button
+      style="margin: 5.83rem 1.25rem 0rem 1.25rem; width: calc(100% - 2.5rem);background: #343a40 !important;color: #fff !important;"
+      class="btn btn-dark btn-lg">{{'Submit'|translate}}
+    </button>
+  </form>
+</ion-content>

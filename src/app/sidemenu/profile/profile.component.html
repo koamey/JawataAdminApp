@@ -1,0 +1,186 @@
+<app-header [heading]="heading"></app-header>
+
+<ion-content *ngIf="profileList">
+  <ion-title class="text-center mt-3" style="font-size: 1.33rem; color: #000 !important;">
+    <b style="font-size: 0.875rem;color: #000 !important;"> {{'My profile' |translate}} </b>
+    <a style="vertical-align:middle;float: right;color: #000 !important;">
+      <ion-icon (click)="editProfile()" name="create"
+        style="font-size: 1.1rem; margin-top: 0.5rem;color: #000 !important;"></ion-icon>
+    </a>
+  </ion-title>
+
+  <form>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-item lines="none" class="colFontSize" *ngFor="let item of profileDetailArr">
+      <ion-label style=" font-size: 0.875rem;margin: 0;"><b>{{ item.title | translate}}</b></ion-label>
+      <ion-text style=" font-size: 0.875rem;width: calc(100% - 8.33rem);"> {{item.detail=='null'?'':item.detail | translate}}
+      </ion-text>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-content *ngIf="editProfileForm">
+
+  <form [formGroup]="profileForm" (ngSubmit)="onClickSubmit()" style="margin: 0rem 0.83rem 0.83rem 0.83rem;" novalidate>
+
+    <ion-grid>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Title' | translate}}<sup>*</sup></b></ion-label>
+        <ion-select
+          style="margin: 0rem !important;width: 100% !important;background: transparent !important;border-color: #c5c5c5 !important;color: #000 !important; font-size:0.875rem;border: 0.08rem solid;border-radius: 0.41rem;padding: 0.60rem 1.66rem;"
+          [(ngModel)]="profile_title" [ngModelOptions]="{standalone: true}">
+          <ion-select-option value="Mr">{{'Mr' | translate}}</ion-select-option>
+          <ion-select-option value="Miss">{{'Ms' | translate}} </ion-select-option>
+        </ion-select>
+      </ion-list>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'First Name'|translate}}<sup>*</sup></b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom:0rem;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'First Name'|translate}}" formControlName="profileFirstName" maxlength="50"
+          [(ngModel)]="profile_fName">
+        </ion-input>
+      </ion-list>
+      <ion-label class="text-danger" *ngIf="isSubmitted && errorControl.profileFirstName.errors?.required"
+        style="font-size:0.800rem;">
+        {{'Enter first name' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Last Name' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom:0rem;padding-left: 0.83rem !important;font-size:0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'Last Name' | translate}}" formControlName="profileLastName" maxlength="50"
+          [(ngModel)]="profile_lname">
+        </ion-input>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.profileLastName.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'Enter last name' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Email' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'Email' | translate}}" formControlName="profileEmail" maxlength="50"
+          [(ngModel)]="profile_email"></ion-input>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.profileEmail.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'Enter email' | translate}}
+      </ion-label>
+      <ion-label *ngIf="isSubmitted && errorControl.profileEmail.errors?.pattern" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'Enter valid email' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size:0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'DOB' | translate}}<sup>*</sup></b></ion-label>
+        <ion-datetime style="font-size: 0.875rem;padding-right: 1.25rem;color: #000 !important;"
+          formControlName="profileDOB" [(ngModel)]="profile_dob">
+        </ion-datetime>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.profileDOB.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'DOB is required' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size:0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'User Name' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom: 0;padding-left: 0.83rem !important;font-size:0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'User Name' | translate}}" maxlength="50" [(ngModel)]="profile_userName"
+          formControlName="profileUsername" required>
+        </ion-input>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.profileUsername.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'User name is required' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Address Line 1' | translate}}</b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size:0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'Address line 1' | translate}}" [ngModelOptions]="{standalone: true}"
+          maxlength="50" [ngModelOptions]="{standalone: true}" [(ngModel)]="profile_address_line1">
+        </ion-input>
+      </ion-list>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Address Line 2' | translate}}</b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'Address line 2' | translate}}" [ngModelOptions]="{standalone: true}"
+          maxlength="50" [ngModelOptions]="{standalone: true}" [(ngModel)]="profile_address_line2">
+        </ion-input>
+      </ion-list>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Town' | translate}}</b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'Town' | translate}}" [ngModelOptions]="{standalone: true}" maxlength="50"
+          [ngModelOptions]="{standalone: true}" [(ngModel)]="profile_town"></ion-input>
+      </ion-list>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size:0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Post Code' | translate}}</b></ion-label>
+            <ion-input
+            style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+            type="text" placeholder="{{'Post code' | translate}}" maxlength="20"  [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="profile_postCode">
+          </ion-input>
+  
+            <!-- <ion-input
+          style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+          type="tel" placeholder="{{'Post code' | translate}}" maxlength="6"
+          onkeypress="return event.charCode >= 48 && event.charCode <= 57" [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="profile_postCode">
+        </ion-input> -->
+      </ion-list>
+
+      <ion-list style="padding-bottom: 0 !important;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Select Language' | translate}}<sup>*</sup></b></ion-label>
+        <ion-select
+          style="margin: 0rem !important;width: 100% !important;background: transparent !important;border-color: #c5c5c5 !important; font-size:0.875rem;border: 0.08rem solid;border-radius: 0.41rem;padding: 0.60rem 1.66rem;color: #000 !important;"
+          [(ngModel)]="selectedLanguage" [ngModelOptions]="{standalone: true}">
+          <ion-select-option value="en">English</ion-select-option>
+          <ion-select-option value="fr">French</ion-select-option>
+          <ion-select-option value="de">German</ion-select-option>
+          <ion-select-option value="hi">Hindi</ion-select-option>
+          <ion-select-option value="es">Spanish</ion-select-option>  
+        </ion-select>
+      </ion-list>
+
+      <div class="row">
+        <div class="col-md-12 mt-4">
+          <div class="m-form__group form-group text-center">
+            <button class="btn btn-dark"
+              style="font-size: 0.875rem; width:49%; margin-right: 2%; background: #000 !important; color: #fff !important;">{{'Save' |translate}}</button>
+            <button class="btn btn-dark" (click)="onClickCancel()"
+              style="font-size: 0.875rem; width:49%;background: #000 !important;color: #fff !important;opacity: 1;">{{'Cancel' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </ion-grid>
+  </form>
+</ion-content>

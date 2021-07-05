@@ -1,0 +1,245 @@
+<app-header *ngIf="testSessionHeader" [heading]="heading"></app-header>
+
+<ion-header *ngIf="testSessionSubHeader">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="test-sessions" (click)="onClickBackButton()" style="color: #fff !important;">
+      </ion-back-button>
+      <b style="color: #fff !important;">{{'Submit Answers' | translate}}</b>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header *ngIf="testSessionFileSubHeader">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="test-sessions" (click)="onClickBackButton()" style="color: #fff !important;">
+      </ion-back-button>
+      <b style="color: #fff !important;">{{'File Listing' | translate}}</b>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header *ngIf="viewGradeSubHeader">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="test-sessions" (click)="onClickBackButton()" style="color: #fff !important;">
+      </ion-back-button>
+      <b style="color: #fff !important;">{{'List of graded files' | translate}}</b>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="testSessionData">
+  <div
+    style="width: 100%; float: left; background: #fff;position: fixed;left: 0;z-index: 11;height:calc(42px + 15.933vw)">
+    <ion-searchbar (ngModelChange)="trimSearchValues($event)" [(ngModel)]="filter" placeholder="{{'Search'|translate}}">
+    </ion-searchbar>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list class="sso-title" style="text-align: center;  padding: 0 5.2vw 1vw 5.2vw !important;">
+
+      <ion-button color="dark" (click)="onClickOpenFile()">{{'Open File' | translate}} </ion-button>
+      <ion-button color="dark" [disabled]="disabled" *ngIf="isActor" (click)="onClickSubmitAnswer()">
+        {{'Submit Answer' | translate}}
+      </ion-button>
+      <ion-button color="dark" (click)="onClickViewGrade()"> {{'View Grade' | translate}}</ion-button>
+    </ion-list>
+  </div>
+  <div style="width: 100%; float: left;    top: calc(42px + 20.933vw); position: relative;">
+    <ion-row *ngFor="let item of testSessionArr ; let i=index">
+
+      <ion-checkbox (click)="onClickChechbox($event.target.checked, item)"
+        style="vertical-align: middle;height: 4.266666666666667vw; width: 4.266666666666667vw;color: #000 !important; margin-left: 5.2vw;margin-right: 3.2vw; float: left;margin-top: 5.2vw;"
+        color="dark">
+      </ion-checkbox>
+
+      <div class="mobile-table"
+        style="padding:1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;"
+        style="width: calc(100% - 17.466vw);float: right; margin: 0 !important;">
+        <div class="mobile-table-inner" style="margin-top: 0;">
+
+          <div class="mobile-border">
+
+            <div class="mobile-file" style="color: #000 !important;">
+              <b>{{'Session' | translate}}</b><br>
+              <span style="color: #000 !important; font-weight: normal;">{{item.test_session_count_for_that_entity}}
+              </span>
+            </div>
+
+            <div class="mobile-file" style="color: #000 !important;"><b>{{'Class' | translate }}</b> <span
+                style="color: #000 !important;font-weight: normal;">
+                {{item.ref_grade}} </span>
+            </div>
+
+            <div class="mobile-file" style="color: #000 !important;"><b>{{'Subject' | translate }}</b> <span
+                style="color: #000 !important;font-weight: normal;">
+                {{item.subject_name}} </span>
+            </div>
+
+            <div class="mobile-file" style="color: #000 !important;"><b>{{'Deadline' | translate }}</b> <span
+                style="color: #000 !important;font-weight: normal;">
+                {{item.deadline_date}} </span>
+            </div>
+
+            <div class="mobile-file" style="color: #000 !important;"><b>{{'Answered Date' | translate }}</b> <span
+                style="color: #000 !important; font-weight: normal;">
+                {{item.answer_date ==''?'N/A': item.answer_date}} </span>
+            </div>
+
+            <div class="mobile-file" style="color: #000 !important;"><b>{{'Graded Date' | translate }}</b> <span
+                style="color: #000 !important;font-weight: normal;">
+                {{item.graded_date ==''?'N/A':item.graded_date}} </span>
+            </div>
+            <div class="mobile-file" style="color: #000 !important;"><b>{{'Avg Grade' | translate }}</b> <span
+                style="color: #000 !important;font-weight: normal;">
+                {{item.grade =='null'?'-':(item.graded_date ==''?'-':item.grade)}} </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </ion-row>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="fileUploadPage">
+  <ion-grid style="padding: 0 4vw; position: relative; height: 92%; overflow: scroll; max-height: 100%;">
+
+    <br>
+    <!-- removed test file dropdown 24-12-2020 as new CR  -->
+
+    <!-- <ion-item style="--padding-start: 0;">
+      <ion-label style="font-size: 1rem !important;">{{'Select File' | translate }}</ion-label>
+      <ion-select  okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}" [(ngModel)]="defaultFile"
+        (ionChange)="onChangeSelectFile($event.target.value)" [ngModelOptions]="{standalone: true}"
+        style="font-size: 1rem !important;">
+        <ion-select-option *ngFor="let item of fileListArr" [value]="item.test_file">{{item.test_file}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+    <br>
+    <ion-row>
+      <div class="form-group" style="width: 100%;position: relative;">
+        <!-- <input type="file"  multiple ng2FileSelect [uploader]="fileUploader" (change)="onClickFile($event)"/> -->
+        <!-- <label for="file">Choose Files</label>-->
+        <ion-label class="filediv">{{'Choose Files' | translate }} </ion-label>
+        <span class="inputfilespan"> {{'No files'| translate}}</span>
+        <input type="file" id="file" class="inputfile" (change)="onFileChangearrayinsert($event)" multiple />
+
+      </div>
+    </ion-row>
+
+    <h5> {{'Uploaded Files :'| translate}} {{images.length}}</h5>
+    <!-- <div style="width: 100%; height: 99%; border: 1px solid #212529; padding: 5px;  margin: 5px;"> -->
+    <div style="width: 100%;">
+      <ion-row *ngFor="let item of images; let i=index"
+        style="padding: 0.41rem 0rem;background: #fff;border-bottom: 0.08rem solid rgba(0, 0, 0, 0.125);margin-bottom: 0.08rem;">
+        <hr>
+        <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;" color="light">
+          <ion-icon
+            style="font-size: 1.5rem;vertical-align: middle;float: left;margin-right: 0.83rem;color: #000 !important;"
+            name="document">
+          </ion-icon>
+          <p style="width: calc(100% - 2.5rem); float: left;font-size: 1rem;margin: 0rem; color: #000 !important;">
+            {{item.filename}}
+            <ion-icon
+              style="float: right;font-size: 1.3rem; color:#f8f9fa !important;background-color: #00000066;border-radius: 50%;"
+              (click)="onClickremove(i)" [name]="item.icon">
+            </ion-icon>
+          </p>
+        </ion-col>
+        <!-- <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;">
+      <ion-icon style="float: right;font-size: 1.3rem; color:#f8f9fa !important;background-color: #00000066;border-radius: 50%;"
+        (click)="onClickremove(i)" [name]="item.icon">
+      </ion-icon>
+    </ion-col> -->
+      </ion-row>
+    </div>
+  </ion-grid>
+
+  <div class="row" style="text-align: center; margin: 0;position: absolute;width: 100%;padding: 0;left: 0;bottom: 0;">
+    <div class="col-md-12 mt-3">
+      <div class="m-form__group form-group text-center">
+
+        <button class="btn btn-dark" (click)="confirmSubmitTestAnswer()"
+          style="font-size: 0.875rem; width: 49%; margin-right: 2%; background: #000 !important; color: #fff !important;">{{'Send' |translate}}</button>
+        <!-- <button class="btn btn-dark" (click)="uploadFiles()"
+            style="font-size: 0.875rem; width: 49%; margin-right: 2%; background: #000 !important; color: #fff !important;">{{'Save' |translate}}</button> -->
+        <button class="btn btn-dark" (click)="onClickCancel()"
+          style="font-size: 0.875rem; width: 49%;background: #fff !important;color: #000 !important;opacity: 1;">{{'Cancel' | translate}}</button>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-content *ngIf="openFileSubForm">
+  <ion-searchbar (ngModelChange)="trimSearchFiles($event)" [(ngModel)]="fileFilter"
+    placeholder="{{'Search'|translate}}">
+  </ion-searchbar>
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher> -->
+
+  <ion-row *ngFor="let item of testSessionFiles | deepFilter:fileFilter:keysToExcludeField"
+    style="padding: 0.41rem 0rem;background: #fff;border-bottom: 0.08rem solid rgba(0, 0, 0, 0.125);margin-bottom: 0.08rem;">
+    <hr>
+    <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;" color="light">
+      <ion-icon
+        style="font-size: 1.5rem;vertical-align: middle;float: left;margin-right: 0.83rem;color: #000 !important;"
+        name="document">
+      </ion-icon>
+      <p style="width: calc(100% - 2.5rem); float: left;font-size: 1rem;margin: 0rem; color: #000 !important;">
+        {{item.test_file}}</p>
+    </ion-col>
+    <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;">
+      <!-- <p style="float: left;font-size: 0.875rem;margin: 0; color: #000 !important;"><b style="color: #000 !important;"> {{'Size' | translate}}</b>:{{item.size}}
+      </p> -->
+      <ion-icon style="float: right;font-size: 1.5rem; color: #000 !important;"
+        (click)="onClickDownload(item.test_file, item.test_session_id, item.entity_id, item.class_id, item.icon)"
+        [name]="item.icon">
+      </ion-icon>
+
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+
+<ion-content *ngIf="viewGradeSubForm">
+  <ion-searchbar (ngModelChange)="trimSearchGrade($event)" [(ngModel)]="filterGrade"
+    placeholder="{{'Search'|translate}}">
+  </ion-searchbar>
+
+  <ion-row *ngFor="let item of gradeListArr | deepFilter:filterGrade:keysToExcludeGrade"
+    style="padding: 0.41rem 0rem;background: #fff;border-bottom: 0.08rem solid rgba(0, 0, 0, 0.125);margin-bottom: 0.08rem;">
+    <hr>
+    <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;" color="light">
+      <ion-icon
+        style="font-size: 1.5rem;vertical-align: middle;float: left;margin-right: 0.83rem;color: #000 !important;"
+        name="document">
+      </ion-icon>
+      <p style="width: calc(100% - 2.5rem); float: left;font-size: 1rem;margin: 0rem; color: #000 !important;">
+        {{item.graded_file}}</p>
+    </ion-col>
+    <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;">
+      <p style="float: left;font-size: 0.875rem;margin: 0; color: #000 !important;"><b style="color: #000 !important;">
+          {{'Grade' | translate}}</b>:{{item.file_grade}}
+      </p>
+      <ion-icon style="float: right;font-size: 1.5rem; color: #000 !important;"
+        (click)="downLoadGradefile(item.graded_file, item.test_session_id, item.entity_id, item.class_id, item.icon)"
+        [name]="item.icon">
+      </ion-icon>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

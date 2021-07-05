@@ -1,0 +1,104 @@
+<app-header [heading]="heading"></app-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row>
+    <ion-col style="padding: 0.83rem;">
+      <div class="card bg-default"
+        style="background-color: #e2e2e2 !important;box-shadow: 0rem 0rem 0.33rem #0000002e;border: 0.08rem solid #d4d4d4 !important;">
+        <div class="card-body text-center">
+          <ion-text color="dark" style="font-size: 1rem;font-weight: 600; color: #000 !important;">
+            {{'Activity Log' | translate}}</ion-text>
+          <ion-text color="dark" style="font-size: 0.875rem;width: 100%;float: left; color: #000 !important;">
+            {{'You can see Your activity log' |translate}}</ion-text>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid>
+    <ion-row style="padding: 0rem 0.41rem;margin-top: -0.20rem;">
+      <ion-col color="light"
+        style="background: #e2e2e2 !important;border-top-left-radius: 0.66rem;border-top-right-radius: 0.66rem;padding: 0.83rem;font-size:0.875rem;">
+        <b style="color: #000 !important;"> {{'Today' |translate}}</b>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of todaysRecord"
+      style="background-color:#e2e2e2 !important;margin: 0rem 0.41rem;border-top: 0.08rem solid #ccc;">
+      <ion-col style="font-size: 0.71rem;padding: 0.66rem 0.83rem;"><b style="color:#000 !important;">
+          {{item.moduleName |translate}} </b> &nbsp;
+        <span style="float: right; font-size: 0.875rem;color: #000 !important;" class="audit-time">{{item.datetime |
+          slice:10:19 }}</span>
+        <span class="audit-down"
+          style="color: black !important;font-size: 0.800rem;float: right;margin-right: 0;width: 100%;text-align: right;">
+
+          <span [innerHTML]="item.des | htmlToPlaintext"></span>
+
+        </span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding: 0rem 0.41rem; margin-top: 0.83rem;">
+      <ion-col
+        style="background: #e2e2e2 !important;border-top-left-radius: 0.66rem;border-top-right-radius: 0.66rem;padding: 0.83rem;font-size: 0.875rem;">
+        <b style="color: #000 !important;"> {{'Yesterday' |translate}}</b>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of yesterdayRecord"
+      style="background-color:#e2e2e2 !important;margin: 0rem 0.41rem;border-top: 0.08rem solid #ccc;">
+
+      <ion-col style="font-size: 0.71rem;padding: 0.66rem 0.83rem;"><b style="color:#000 !important;">
+          {{item.moduleName |translate}} </b> &nbsp;
+
+        <span style="float: right; font-size: 0.875rem;color: #000 !important;" class="audit-time">{{item.datetime |
+          slice:10:19 }}</span>
+        <span class="audit-down"
+          style="color:black !important;font-size: 0.800rem;float: right;margin-right: 0;width: 100%;text-align: right;">
+
+          <!-- <b> {{item.username}} </b> {{item.des|translate}} <b>{{item.fileName}}</b> {{item.des2 |translate}} <b>{{item.sessionid}}</b>
+          {{item.subjectDes|translate}}   <b>{{item.subjectName}}</b> {{item.des3 |translate}} <b> {{item.className}} </b> {{item.des4 |translate}}
+        <b> {{item.entityName}} </b> {{item.des5|translate}} -->
+          <!-- {{item.des}} -->
+
+          <span [innerHTML]="item.des | htmlToPlaintext"></span>
+
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngFor="let date of uniqueDateArr">
+    <ion-row
+      style="background-color:#e2e2e2 !important; margin:0.25rem 0.41rem 0rem 0.41rem;border-top-left-radius: 0.66rem; border-top-right-radius: 0.66rem;">
+      <ion-col
+        style="font-size: 0.875rem;color: #000 !important;border-top-left-radius: 0.66rem;border-top-right-radius: 0.66rem;padding: 0.83rem;">
+        <b style="color: #000 !important;"> {{date | date:'LLLL' | translate}} - {{date | date:'yyyy'}} </b>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of monthWiseRecord" style="background-color:#e2e2e2 !important;margin: 0rem 0.41rem;">
+      <ion-col *ngIf="date == (item.date | date:'yyyy-MM')"
+        style="font-size: 0.71rem;padding: 0.66rem 0.83rem;border-top: 0.08rem solid #ccc; color: #000 !important;">
+        {{item.moduleName | translate}} &nbsp;
+        <span style="float: right; font-size: 0.875rem;color: #000 !important;" class="audit-time">{{item.datetime |
+          slice:10:19 }}</span>
+        <span class="audit-down"
+          style="color: black !important;font-size: 0.800rem;float: right;margin-right: 0;width: 100%;text-align: right;">
+
+          <span [innerHTML]="item.des | htmlToPlaintext"></span>
+
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+</ion-content>

@@ -1,0 +1,165 @@
+<app-header *ngIf="ssoHeader" [heading]="heading"></app-header>
+
+<ion-header *ngIf="ssoAddHeader">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="sso" (click)="onClickBackButton()" style="color: #fff !important;">
+      </ion-back-button>
+      <b style="color: #fff !important;">{{'Add Resources with ID access' | translate}}</b>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="ssoDetails">
+  <ion-searchbar (ngModelChange)="trimSearchValues($event)" [(ngModel)]="filter" placeholder="{{'Search'|translate}}">
+  </ion-searchbar>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list class="sso-title" style="padding:0.83rem 0.83rem 0rem 0.83rem;">
+    <ion-text slot="start" style="float: left;color: #000 !important;">
+      <b style="color: #000 !important;"> {{'Resources with ID access' | translate}}</b>
+    </ion-text>
+    <a slot="end" style="vertical-align:middle; float: right; color: #000 !important;">
+      <ion-icon *ngIf="hideAddButton" (click)="onClickAddSSO()" name="add-circle"
+        style="font-size: 1.3rem; color: #000 !important;"></ion-icon>
+      &nbsp; <ion-icon name="trash" (click)="showConfirmAlert()" style="font-size: 1.3rem; color: #000 !important;">
+      </ion-icon>
+    </a>
+  </ion-list>
+
+  <ion-row>
+    <ion-col style="padding: 0rem 0.83rem 0rem 0.83rem;">
+      <div>
+        <ion-text style="font-size: 0.875rem; color: #000 !important;" color="dark">
+          {{'Resource with ID Name' | translate}} | {{'Activity' | translate}}
+        </ion-text>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let item of ssoListing | deepFilter:filter:keysToExclude; let i=index">
+    <ion-col style="padding: 0.41rem 0.83rem 0.83rem 0.83rem;">
+      <div class="card bg-default" style="border-radius: 0.66rem;">
+        <div class="card-body text-left"
+          style="padding: 0.5rem 1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+
+          <ion-list>
+            <div style="width: 100%; float: left;">
+              <ion-checkbox style="vertical-align: middle;height: 1rem;width: 1rem; color: #000 !important;"
+                (click)="onClickChechbox($event.target.checked,item)" color="dark"></ion-checkbox>&nbsp;
+              <ion-text style="font-size: 1rem; color: #000 !important;" color="dark">{{ item.ssoName }}</ion-text>
+              &nbsp;
+              <a slot="end" style="vertical-align:bottom;font-size:1.50rem;float: right; color: #000 !important;">
+                <ion-icon name="create" color="white" (click)="editSSOData(item.ssoId)" style="color: #000 !important;">
+                </ion-icon>
+              </a>
+            </div>
+
+            <ion-button size="small"
+              (click)="onClickGetURL(item.ssoId,item.ssoName,item.ssoDesc, item.ssoUrl, item.user_id, item.password)"
+              style="vertical-align: middle; float: right; width: 100%; background: #000 !important; color: #fff !important;"
+              color="dark">
+              {{'Access' |translate}}</ion-button>
+          </ion-list>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-content *ngIf="AddSSO" class="contentSSO">
+
+  <form [formGroup]="ssoForm" (ngSubmit)="onSubmitSSO()" style="margin: 0rem 0.83rem 0.83rem 0.83rem;" novalidate>
+
+    <ion-grid>
+
+      <ion-list style="padding-bottom: 0; color: #000 !important;">
+        <ion-label style="font-size: 0.875rem; color: #000 !important;"><b
+            style="color: #000 !important;">{{'Resource with ID Name' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input type="text" maxlength="50"
+          style="height: 2.6rem;margin-bottom: 0;padding-left: 0.83rem !important;font-size: 0.875rem; color: #000 !important;"
+          placeholder="{{'Resource with ID Name' | translate}}" formControlName="ssoName" [(ngModel)]="SSOVar">
+        </ion-input>
+      </ion-list>
+      <ion-label class="text-danger" *ngIf="isSubmitted && errorControl.ssoName.errors?.required"
+        style="font-size: 0.800rem">
+        {{'Resource with ID name is required' |translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'Description'|translate}}<sup>*</sup></b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom:0;padding-left: 0.83rem !important;font-size:0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'Description'|translate}}" formControlName="ssoDescription" maxlength="150"
+          [(ngModel)]="descriptionVar">
+        </ion-input>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.ssoDescription.errors?.required" class="text-danger"
+        style="font-size: 0.800rem;">
+        {{'Description is required' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0;color: #000 !important;">
+        <ion-label style="font-size: 0.875rem;color: #000 !important;"><b
+            style="color: #000 !important;">{{'URL' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input
+          style="height: 2.6rem;margin-bottom:0;padding-left: 0.83rem !important;font-size: 0.875rem;color: #000 !important;"
+          type="text" placeholder="{{'URL' | translate}}" formControlName="ssoURL" maxlength="50" [(ngModel)]="textURL">
+        </ion-input>
+      </ion-list>
+
+      <ion-label *ngIf="isSubmitted && errorControl.ssoURL.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'URL is required' | translate}}
+      </ion-label>
+
+      <ion-label *ngIf="isSubmitted && errorControl.ssoURL.errors?.pattern" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'Enter valid URL' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0;">
+        <ion-label style="font-size:0.875rem;"><b>{{'User ID' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;"
+          type="text" placeholder="{{'User ID' | translate}}" formControlName="ssoUserId" maxlength="50"
+          [(ngModel)]="userIdvar">
+        </ion-input>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.ssoUserId.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'User ID is required' | translate}}
+      </ion-label>
+
+      <ion-list style="padding-bottom: 0;">
+        <ion-label style="font-size: 0.875rem;"><b>{{'Password' | translate}}<sup>*</sup></b></ion-label>
+        <ion-input style="height: 2.6rem;margin-bottom: 0rem;padding-left: 0.83rem !important;font-size: 0.875rem;"
+          type="password" placeholder="{{'Password' | translate}}" [(ngModel)]="passwordVar" maxlength="50"
+          formControlName="ssoPassword">
+        </ion-input>
+      </ion-list>
+      <ion-label *ngIf="isSubmitted && errorControl.ssoPassword.errors?.required" class="text-danger"
+        style="font-size:0.800rem;">
+        {{'Password is required' | translate}} </ion-label>
+      <br>
+
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <div class="m-form__group form-group text-center">
+
+            <button class="btn btn-dark"
+              style="font-size: 0.875rem; width: 49%; margin-right: 2%; background: #000 !important; color: #fff !important;">{{'Save' |translate}}</button>
+            <button class="btn btn-dark" (click)="onClickCancel()"
+              style="font-size: 0.875rem; width: 49%;background: #fff !important;color: #000 !important;opacity: 1;">{{'Cancel' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+    </ion-grid>
+  </form>
+
+</ion-content>

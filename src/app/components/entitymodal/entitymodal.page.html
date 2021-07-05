@@ -1,0 +1,28 @@
+<ion-item *ngIf="hideActorDropdown">
+  <ion-label style="font-size: 1rem !important;">{{'Select Actor' | translate }}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    [(ngModel)]="defaultActor" [ngModelOptions]="{standalone: true}" (ionChange)="changeActor($event.target.value)"
+    style="font-size: 1rem !important;">
+    <ion-select-option *ngFor="let item of actorList" [value]="item.name">{{item.name}} </ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'Select Entity' | translate }}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    [(ngModel)]="defaultEntity" [placeholder]="defaultEntity" (ionChange)="changeEntity($event.target.value)"
+    [ngModelOptions]="{standalone: true}" style="font-size: 1rem !important;">
+    <ion-select-option *ngFor="let item of entityArr"  [value]="item.name_town" >{{item.name_town}} </ion-select-option>
+  </ion-select>
+</ion-item>
+
+
+
+<!-- <ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'Select Class' | translate }}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    [(ngModel)]="defaultClass" [placeholder]="defaultClass" (ionChange)="changeClass($event.target.value)"
+    [ngModelOptions]="{standalone: true}" style="font-size: 1rem !important;">
+    <ion-select-option *ngFor="let item of classListArr" [value]="item.ref_grade">{{item.ref_grade}} </ion-select-option>
+  </ion-select>
+</ion-item> -->

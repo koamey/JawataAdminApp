@@ -1,0 +1,118 @@
+<ion-content>
+  <div style="width: 0%;margin: 19px;">
+    <div class="card bg-default" style="background-color: #343a40 !important;width: 100%;">
+      <div class="card-body text-center"
+        style="padding:0.5rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+<!-- 
+        <ion-text color="light" style="float: left;"><b style="color: #fff !important;"> {{heading}}</b>
+        </ion-text> -->
+
+      </div>
+    </div>
+  </div>
+<div>
+<ion-grid>
+  <ion-row style="font-weight: bold;">
+    <ion-col>{{'Name'| translate}}</ion-col>
+    <ion-col>{{'Date & Time'| translate}}</ion-col>
+    <ion-col>{{'Status'| translate}}</ion-col>
+  </ion-row>
+  <hr class="hr-class"/>
+  <div style="height: 100%;overflow: scroll;" *ngFor="let item of historyData; let i=index">
+<ion-row style="height: 55px;" scrollX="true">
+  <ion-col>
+    <p>
+      {{item.Name}}
+    </p>
+  </ion-col>
+  <ion-col >
+    <p>
+      {{item.checkindate}}
+    </p>
+  </ion-col>
+ <ion-col color="light">
+    <p>
+      {{item.arrival}} 
+    </p>
+  </ion-col>
+ 
+</ion-row>
+<hr />
+</div>
+
+</ion-grid>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="{{'Loading more data...'|translate}}">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</div>
+
+  <!-- </ion-content>
+  <ion-content> -->
+
+    <!-- <ion-grid style="padding: 0 1vw; position: relative; height: 92%; overflow: scroll; max-height: 100%;">
+
+      <div style="width: 100%;">
+        <ion-row *ngFor="let item of historyData; let i=index"
+          style="padding: 0.41rem 0rem;background: #fff;border-bottom: 0.08rem solid rgba(0, 0, 0, 0.125);margin-bottom: 0.08rem;">
+          <hr>
+          <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;" color="light">
+            <p style="width: calc(100% - 2.5rem); float: left;font-size: 1rem;margin: 0rem; color: #000 !important;">
+              {{item.citizenID}}
+            </p>
+          </ion-col>
+
+          <hr>
+          <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;" color="light">
+            <p style="width: calc(100% - 2.5rem); float: left;font-size: 1rem;margin: 0rem; color: #000 !important;">
+              {{item.checkindate}}
+            </p>
+          </ion-col>
+
+          <hr>
+          <ion-col size="12" style="background-color: white;padding: 0rem 0.83rem;" color="light">
+            <p style="width: calc(100% - 2.5rem); float: left;font-size: 1rem;margin: 0rem; color: #000 !important;">
+              {{item.arrival}} 
+            </p>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid> -->
+     <!-- {{item.checkoutdate =='null'?'Arrival':'Departure'}} -->
+    <!-- {{item.checkoutdate =='null'?item.checkindate:item.checkoutdate}} -->
+  <!-- </ion-content>
+    <ion-content> -->
+    <!-- <div style="width: 100%; float: left;    top: calc(42px + 20.933vw); position: relative;">
+      <ion-row *ngFor="let item of historyData; let i=index">
+    
+        <div class="mobile-table"
+          style="padding:1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;"
+          style="width: calc(100% - 17.466vw);float: right; margin: 0 !important;">
+          <div class="mobile-table-inner" style="margin-top: 0;">
+  
+            <div class="mobile-border">
+  
+              <div class="mobile-file" style="color: #000 !important;">
+                <b>citizenID</b><br>
+                <span style="color: #000 !important; font-weight: normal;">{{item.citizenID}}
+                </span>
+              </div>
+  
+              <div class="mobile-file" style="color: #000 !important;"><b>Date</b> <span
+                  style="color: #000 !important;font-weight: normal;">
+                  {{item.checkindate}} </span>
+              </div>
+  
+              <div class="mobile-file" style="color: #000 !important;"><b>Status</b> <span
+                style="color: #000 !important;font-weight: normal;">
+                {{item.arrival}} </span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+    </div> -->
+
+  </ion-content>

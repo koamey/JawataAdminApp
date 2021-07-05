@@ -1,0 +1,40 @@
+<app-header [heading]="heading"></app-header>
+<ion-searchbar (ngModelChange)="trimSearchValues($event)" [(ngModel)]="filter" placeholder="{{'Search'|translate}}">
+</ion-searchbar>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-row>
+    <ion-col style="padding:0.83rem 0.83rem 0rem 0.83rem;">
+      <div>
+        <ion-text color="dark">
+          <p style="margin: 0rem; padding: 0rem; color: #000 !important;">{{'Resources with Open Access' | translate}}</p>
+        </ion-text>
+      </div>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row *ngFor="let item of thirdPartyDetails | deepFilter:filter:keysToExclude">
+    <ion-col style="padding: 0.41rem 0.83rem 0.83rem 0.83rem;">
+      <div class="card bg-default" style="border-radius: 0.66rem;">
+        <div class="card-body text-left"
+          style="padding: 0.5rem 1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+
+          <ion-list>
+            <div style="width: 100%; float: left;">
+              <ion-text style="font-size: 1rem; color: #000 !important;" color="dark">{{ item.tps_name }}</ion-text>&nbsp;
+            </div>
+
+            <ion-button size="small" (click)="onClickOpenURL(item.tps_id ,item.tps_url)"
+              style="vertical-align: middle; float: right; width: 100%; background: #000 !important; color: #fff !important;" color="dark">
+              {{'Access' |translate}}</ion-button>
+          </ion-list>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

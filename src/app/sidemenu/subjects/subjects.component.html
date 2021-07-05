@@ -1,0 +1,246 @@
+<app-header *ngIf="header" heading="{{'Attendance Sheet'| translate }}"></app-header>
+
+<!--1st Attendance Sheet Screens starts-->
+<ion-list *ngIf="attendancesheet" class="attendanceheader">
+  <ion-grid>
+    <ion-row>
+      <ion-col style="padding-top: 0;padding-bottom: 0;">
+        <ion-item>
+          <ion-label class="select-Label" style="margin: 0;">{{'Select date' | translate }}</ion-label>
+          <ion-datetime [placeholder]="todaysDate" display-timezone="utc" cancelText="{{'CANCEL'|translate}}"
+            [doneText]="doneButtonString" style="padding: 0;" [ngModelOptions]="{standalone: true}"
+            displayFormat="DD-MM-YYYY" [(ngModel)]="selecteddate" (ngModelChange)="selectdate($event)"
+            value={{todaysDate}}>
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-top: 0;padding-bottom: 0;">
+        <ion-item>
+          <ion-label class="select-Label" style="margin: 0;">{{'Select class' | translate }}</ion-label>
+          <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+            [(ngModel)]="defaultClass" [placeholder]="defaultClass" (ionChange)="changeClass($event.target.value)"
+            [ngModelOptions]="{standalone: true}" class="select-text" style="font-size: 1rem !important;padding: 0;">
+            <ion-select-option *ngFor="let item of classListArr" [value]="item.ref_grade">{{item.ref_grade}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-top: 0;padding-bottom: 0;">
+        <ion-item>
+          <ion-label class="select-Label" style="margin: 0;">{{'Select subject'| translate}}</ion-label>
+          <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+            class="text-input" style="font-size: 1rem !important;padding:0;" [(ngModel)]="defaultSubject"
+            [placeholder]="defaultSubject" (ionChange)="changeSubject($event.target.value)"
+            [ngModelOptions]="{standalone: true}">
+            <ion-select-option *ngFor="let item of subjectListArr" [value]="item.subject_name">{{item.subject_name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="attendancesheet" class="attendance-Btn">
+    <ion-row style="margin-top: 5px;">
+      <ion-col style="padding: 0; margin-left: 16px;">
+        <ion-button color="dark" (click)="onClickCreate()" style=" padding: 0;height: 35px;
+        margin-right: 10px;
+        min-width: 80px;
+     ">
+          {{'Create'| translate}}
+        </ion-button>
+      </ion-col>
+      <ion-col style="padding: 0;">
+        <ion-button color="dark" [disabled]="emptyDataA==true" (click)="onClickopen()"
+          style="padding: 0;height: 35px;margin-right: 10px;min-width: 80px;">
+          {{'Open'| translate}}
+        </ion-button>
+      </ion-col>
+      <!-- <ion-col>
+        <ion-button color="dark" class="attendance-Button" (click)="onClickBack()">
+          Close
+        </ion-button>
+      </ion-col> -->
+
+    </ion-row>
+  </ion-grid>
+  <hr style="margin-top: 0.8rem;">
+  <!--1st Attendance Sheet Screens Ends-->
+
+  <ion-row class="attendancemain">
+    <ion-col class="attendance-on" size="1.8" offset="0"></ion-col>
+    <ion-col class="attendance-on" size="2.9" offset="0">{{'Date'| translate}}</ion-col>
+    <ion-col class="attendance-on" size="2.9" offset="0">{{'Class'| translate}}</ion-col>
+    <ion-col class="attendance-on" size="3.9" offset="0">{{'Subject'| translate}}</ion-col>
+  </ion-row>
+  <hr class="hr-class" />
+</ion-list>
+<!--  -->
+<!-- check Empty Arr -->
+<div style="height: 100%;overflow: scroll;" *ngIf="emptyDataA==true">
+  <ion-grid class="emptyArr">
+    <ion-row style="margin-top: 107px;">{{EmptyArr}}</ion-row>
+  </ion-grid>
+</div>
+<!--  -->
+<!-- display content -->
+<ion-content id="divattendancelist" *ngIf="attendancesheet && emptyDataA==false" class="attendancediv">
+  <!-- <ion-content *ngIf="attendancesheet" style="padding:180px"> -->
+  <ion-grid>
+    <!-- <ion-row class="attendancemain">
+      <ion-col class="attendance-on" size="1.7" offset="0">Select</ion-col>
+      <ion-col class="attendance-on" size="2.9" offset="0">Date</ion-col>
+      <ion-col class="attendance-on" size="2.9" offset="0">Class</ion-col>
+      <ion-col class="attendance-on" size="2.9" offset="0">Subject</ion-col>
+    </ion-row>
+    <hr class="hr-class" /> -->
+
+    <ion-row *ngFor="let list of AttendanceListArr let i=index" scrollX="true">
+
+      <ion-col class="attendance-date" size="1.8" offset="0">
+        <!-- <ion-item> -->
+        <ion-checkbox [(ngModel)]="list.selected" [disabled]="list.send_attendance=='yes'" color="dark"
+          style="margin-left: 10px; margin-top: 7px;"
+          (ionChange)="addCheckbox($event,list.attendance_id,list.send_attendance,list.attendance_status_disabled)">
+        </ion-checkbox>
+        <!-- </ion-item> -->
+      </ion-col>
+
+      <ion-col size="2.9" offset="0" class="attendance-date">{{list.attendance_sheet_date | date: 'yyyy-MM-dd'}}
+      </ion-col>
+      <ion-col size="2.9" offset="0" class="attendance-date">{{list.ref_grade}}</ion-col>
+      <ion-col size="3.9" offset="0" style="word-break: break-all;" class="attendance-date">{{list.subject_name}}
+      </ion-col>
+      <hr class="hr-class" />
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event,'A')">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'Loading more data...'|translate}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<!-- </ion-content> -->
+
+
+
+<!-- 2nd Attendance Sheet Screens starts-->
+<ion-list *ngIf="attendancesheetCreate">
+  <ion-grid style="padding-bottom: 0;">
+
+    <ion-row class="attendancemain">
+      <ion-col size="4" offset="0">{{'Date'| translate}}</ion-col>
+      <ion-col size="4" offset="0">{{'Class'| translate}}</ion-col>
+      <ion-col size="4" offset="0">{{'Subject'| translate}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="4" offset="0">{{selecteddate | date :"yyyy-MM-dd"}} {{CreatedTime}}</ion-col>
+      <ion-col size="4" offset="0">{{defaultClass}}</ion-col>
+      <ion-col size="4" offset="0">{{defaultSubject}}</ion-col>
+    </ion-row>
+
+
+
+    <hr class="hr-class" />
+  </ion-grid>
+  <ion-row class="attendancemain">
+    <ion-col size="5.8" offset="0" class="Attednace-Header1">{{'Name'| translate}}</ion-col>
+    <ion-col size="6" offset="0" class="Attednace-Header2">{{'Attendance'| translate}}</ion-col>
+  </ion-row>
+  <hr class="hr-class" />
+</ion-list>
+<!--check Empty Arr-->
+<div style="height: 100%;overflow: scroll;" *ngIf="emptyData==true">
+  <ion-grid class="emptyArr">
+    <ion-row>{{EmptyArr}}</ion-row>
+  </ion-grid>
+</div>
+<!--  -->
+<!-- display content data -->
+<ion-content *ngIf="attendancesheetCreate && emptyData==false" id="divattendancelist"
+  style="height: 100%;overflow: scroll;">
+  <ion-grid>
+    <ion-row scrollX="true" *ngFor="let list of AttendanceListArr2 let i=index"
+      style="margin-top:-47px;font-size: 28px;display: grid;grid-template-columns: 60% 40%;">
+
+      <ion-col size="5.8" offset="0" class="innerDiv">{{list.fullName}}</ion-col>
+
+      <div *ngIf="list.attendance_status==null" style="height: 57px;">
+        <ion-col size="5" offset="0">
+          <ion-item>
+            <ion-label style="font-size: 1rem !important;display:none;">{{'Select Attendance Status' | translate }}
+            </ion-label>
+            <ion-select [disabled]="sendbutton==false" (ionCancel)="onCancel()" okText="{{'OK'|translate}}"
+              cancelText="{{'CANCEL'|translate}}" placeholder="{{'Select' | translate}} " style="opacity: 1px;"
+              (ionChange)="changeStatus($event.target.value,list.citizen_id)" [ngModelOptions]="{standalone: true}"
+              class="attendance-status">
+              <ion-select-option *ngFor="let item of categories" [value]="item.id">{{item.title}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+      </div>
+      <div *ngIf="list.attendance_status!=null" style="height: 57px;">
+        <ion-col size="5" offset="0">
+          <ion-item>
+            <ion-label style="font-size: 1rem !important;display:none;">{{'Select Attendance Status' | translate }}
+            </ion-label>
+            <ion-select [disabled]="sendbutton==false" (ionCancel)="onCancel()" okText="{{'OK'|translate}}"
+              cancelText="{{'CANCEL'|translate}}" [placeholder]="list.attendance_status|translate"
+              style="text-transform: capitalize;" (ionChange)="changeStatus($event.target.value,list.citizen_id)"
+              class="attendance-status" [ngModelOptions]="{standalone: true}">
+              <ion-select-option *ngFor="let item of categories" style="text-transform: capitalize;"
+                [selected]="list.statusId == item.id" [value]="item.id">{{item.title}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </div>
+
+    </ion-row>
+    <!-- <hr class="hr-class" /> -->
+  </ion-grid>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event,'B')">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'Loading more data...'|translate}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<!--  -->
+<!-- bottom butttons -->
+<ion-grid *ngIf="attendancesheetCreate" style="margin-left: 2px;margin: 0 10px;margin-bottom: -450px;">
+  <ion-row style="display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 0 29px;">
+    <ion-col style="padding: 0;">
+      <ion-button color="dark" class="attendance-Button" [disabled]="emptyData==true || sendbutton==false"
+        (click)="onClickScan()" style="padding: 0;height: 35px;margin-left: 0;min-width: 100px;">
+        {{'Scan'| translate}}
+      </ion-button>
+    </ion-col>
+    <ion-col style="padding: 0;">
+      <ion-button color="dark" class="attendance-Button"
+        [disabled]="emptyData==true || sendbutton==false || disablebuttons==false"
+        (click)="onChangeSaveAttendance('done')" style="padding: 0;height: 35px;min-width: 100px;margin-left: 0;">
+        {{'Done' | translate}}
+      </ion-button>
+    </ion-col>
+    <ion-col style="padding: 0;">
+      <ion-button [disabled]="emptyData==true || disablebuttons==false" class="attendance-Button" color="dark"
+        (click)="onChangeSaveAttendance('send')" style="padding: 0;height: 35px;margin-left: 0;min-width: 100px;">
+        {{'Send'| translate}}
+      </ion-button>
+    </ion-col>
+    <!-- <ion-col style="padding: 0;">
+      <ion-button color="dark" class="attendance-Button" (click)="onClickClose()"
+        style="padding: 0;height: 35px;margin-left: 0;">
+        {{'Close'| translate}}
+      </ion-button>
+    </ion-col> -->
+
+  </ion-row>
+</ion-grid>
+<!-- 2nd Attendance Sheet Screens Ends-->

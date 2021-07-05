@@ -1,0 +1,7 @@
+{
+  "name": "jawata",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

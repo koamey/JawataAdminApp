@@ -1,0 +1,214 @@
+
+ion-list.sso-title ion-button {
+    height: 8.533333333333333vw;
+    font-size: 2.4vw !important;
+    margin-top: 0;
+    text-transform: capitalize;
+    width: 32.59%;
+    margin-left: 0 !important;
+    float: left;
+    text-align: center;
+    margin-right: 1vw;
+}
+
+.emptyArr
+{    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 50%;
+}
+.attendance-status
+{
+    text-transform: capitalize;
+    width: 100%;
+    display: contents;
+    align-items: center;
+    text-align: center;
+
+}
+.attendanceItem{
+    border-radius: 0;
+    border-color: #dadadd!important;
+    font-size: 18px!important;
+    width: 204%;
+    margin-left: 49px;
+    height: 82%;
+    border-bottom: .5px solid gray!important;
+    border-top: 0!important;
+    margin-top: 2px;
+    text-align: center;
+
+}
+ion-list.sso-title ion-button:first-child {
+    margin-left: 0;
+}
+ion-list.sso-title ion-button:last-child {
+    margin-right: 0;
+}
+
+.col{
+    margin-right: 4.16rem;
+    vertical-align: middle;
+    color: black;
+}
+
+.dropdown.subject {
+    float: right;
+}
+.dropdown.subject button, .dropdown.subject button:focus{
+    background: transparent;
+    color: #000 !important;
+    border: 0rem !important;
+    transform: rotate(90deg);
+    padding: 0rem;
+    box-shadow: none;
+}
+ion-back-button{
+    background: transparent !important;
+    color: #fff !important;
+}
+ion-back-button button{
+    background: transparent !important;
+    color: #fff !important;
+}
+.dropdown.subject button::after{
+    display: none;
+}
+.ion-color-primary{
+    --ion-color-base: #343a40!important;
+}
+
+$colors: (
+    primary:#343a40,
+    ion-color-base: #343a40 !important
+);
+
+// .attendance{
+//     margin-top: -5.497vh;
+//     padding-left: 4.497vh;
+//     padding-right: 4.497vh;
+// }
+.Attendance-number  {
+    font-family: Montserrat-SemiBold;
+    font-size: 1.94vh;
+    text-align: left;
+    color:rgb(243 ,160, 28);
+    line-height: 5.025vh;
+    margin:0vh;
+}
+.Attendance-mealtype{
+    font-family: Montserrat-SemiBold;
+    font-size: 2.09vh;
+    text-align: left;
+    line-height: 5.027vh;
+    margin:0vh;
+}
+.attendance-on{
+    font-family: Montserrat-Bold;
+    font-size: 2.09vh;
+    text-align: left;
+    line-height: 0.027vh;
+    letter-spacing: 0.021vh;
+    margin-top: -2.35vh;
+    color:#000 !important;
+    // margin-left: -0.8vh;
+    margin-top: inherit;
+}
+.attendance-date{
+    font-family: Montserrat-SemiBold;
+    font-size: 1.67vh;
+    text-align: left;
+    line-height: 4.027vh;
+    color: rgb(49 ,74, 93);
+    margin-top: -2vh;
+    margin-left: -1vh;
+    margin-bottom: 0vh;
+}
+.attendance-date1{
+    font-family: Montserrat-SemiBold;
+    font-size: 2.09vh;
+    text-align: left;
+    line-height: 5.027vh;
+    color: rgb(49 ,74, 93);
+    margin-top: -2vh;
+   
+    margin-bottom: 0vh;
+    margin-left: 12px;
+    font-size: 14px;
+}
+
+.hr-class{
+    box-sizing: content-box;
+    height: 1px;
+    overflow: visible;
+    border: 0;
+    border-top: 2px solid rgba(0,0,0,.1);
+    margin: 10px 5px 10px 1px;
+}
+
+.attendance-create{
+    font-family: Montserrat-Bold;
+    // font-size: 2.09vh;
+    font-size: 15.67px;
+    text-align: left;
+    line-height: 1.327vh;
+    letter-spacing: 0.021vh;
+    margin-top: -2.35vh;
+    color:#000 !important;
+    margin-left: -0.8vh;
+    margin-top: inherit;
+}
+.attendancemain{
+    position: sticky;
+    top: 0;
+    left: 0; 
+    right: 0;
+    z-index: 9999; 
+    font-weight: bold;
+}
+.attendanceheader{
+    padding-top: 0px;
+    padding-bottom: 2px;
+}
+.attendancediv{
+    height: 57%;
+    overflow: scroll;
+}
+.attendance-Button{
+    margin-left: 12px;
+    // width: 106px;
+    // height: 47px;
+}
+.select-Label{
+    font-size: 1rem !important;
+}
+.innerDiv{
+    height: 66px;
+    width: 220px;
+    margin-top: 35px;
+    font-size: 16px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+.attendance-Btn{
+    margin-bottom: -12px;
+    margin-top: -11px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Attednace-Header1{
+    text-align:left;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left:10px;
+    font-size:16px;
+}
+.Attednace-Header2{
+    text-align:center;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size:16px;
+    padding-left: 40px;
+}

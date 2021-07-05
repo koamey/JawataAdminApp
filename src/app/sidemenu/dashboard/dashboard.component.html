@@ -1,0 +1,188 @@
+<app-header [heading]="heading"></app-header>
+
+<!-- <ion-content> -->
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- <ion-title>
+    {{'Storage'| translate}}
+  </ion-title>
+
+  <ion-row>
+    <ion-col style="margin: 0rem 1.25rem; padding:0rem;">
+      <div class="progress" style="margin-top:1.25rem;">
+        <div class="progress-bar progress-bar-warning" color="dark" role="progressbar" aria-valuenow="60"
+          aria-valuemin="0" aria-valuemax="100" style="width:60%">
+          60%
+        </div>
+      </div>
+      <ion-text color="white" style="margin-bottom: 0.83rem; width: 100%; float: left;">450 MB Used</ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col style="margin: 0rem 1.25rem; padding:0rem;">
+      <div class="progress" color="dark">
+        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0"
+          aria-valuemax="100" style="width:10%">
+          2%
+        </div>
+      </div>
+      <ion-text color="white" style="margin-bottom: 0.83rem; width: 100%; float: left;">10 MB Used</ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-title>
+    {{'Flat Files' | translate}}
+  </ion-title>
+
+  <ion-row style="margin: 0rem 1.25rem; padding: 0rem;">
+    <ion-col>
+      <div class="card bg-default" style="background-color:#343a40">
+        <div>
+          <div class="progress blue">
+            <span class="progress-left">
+              <span class="progress-bar"></span>
+            </span>
+            <span class="progress-right">
+              <span class="progress-bar"></span>
+            </span>
+            <div class="progress-value">95%</div>
+          </div>
+        </div>
+        <div class="card-body text-center">
+          <ion-text color="dark">{{'Total Size' | translate}}</ion-text>
+        </div>
+      </div>
+    </ion-col>
+    <ion-col>
+      <div class="card bg-default" style="background-color:#343a40">
+        <div>
+          <div class="progress blue">
+            <span class="progress-left">
+              <span class="progress-bar"></span>
+            </span>
+            <span class="progress-right">
+              <span class="progress-bar"></span>
+            </span>
+            <div class="progress-value">95%</div>
+          </div>
+        </div>
+        <div class="card-body text-center">
+          <ion-text color="dark">{{'Apps' | translate}}</ion-text>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="margin: 0rem 1.25rem; padding: 0rem;">
+    <ion-col class="ion-wrap">
+      <div class="card bg-default">
+        <div class="card-body text-center" style="background-color:#343a40">
+          <ion-text color="dark">{{'Last Connection'| translate}} &nbsp;&nbsp; {{'Day' | translate}}</ion-text>
+          <br>
+          <ion-text color="dark">{{'Time'}}:20:30:12</ion-text>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <br> -->
+
+  <!-- <ion-text>
+    <b style="font-size: 0.875rem;padding: 0rem 0.41rem;margin-left: 0.28rem;">
+      {{'QR/ Barcode Scanner' | translate}} </b>
+  </ion-text> -->
+
+  <!-- <ion-grid>
+    <ion-row> -->
+      <div style="width: 100%;margin: 0 0.41rem 0.41rem 0.41rem;" >
+        <div class="bg-default" style="width: 100%;">
+          <div class="text-center">
+            <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass" errorCorrectionLevel="L">
+            </ngx-qrcode>
+          </div>
+        </div>
+      </div>
+    <!-- </ion-row>
+  </ion-grid> -->
+
+  <!-- <ion-grid>
+    <ion-row>
+      <div style="width: 100%;margin: 0 0.41rem 0.41rem 0.41rem;" (click)="encodedText()">
+        <div class="card bg-default" style="background-color: #343a40 !important;width: 100%;">
+          <div class="card-body text-center"
+            style="padding:1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+
+            <ion-text color="light" style="float: center;"><b style="color: #fff !important;">
+                {{'Display QR Code' | translate}} </b>
+            </ion-text>
+          </div>
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid> -->
+
+  <button class="btn btn-dark" (click)="scanQRcode()"
+  style="font-size: 0.875rem; width: 49%; margin-right: 2%; background: #000 !important; color: #fff !important;">{{'Send' |translate}}</button>
+
+  <ion-text>
+    <b style="font-size: 0.875rem;padding: 0rem 0.41rem;margin-left: 0.28rem;">
+      {{'Actor What files are downloaded report' | translate}} </b>
+  </ion-text>
+
+  <ion-grid *ngFor="let item of entityWithSign; let i=index">
+
+  </ion-grid>
+  
+  
+  <ion-grid *ngFor="let ITEM of entityWithSign; let i=index">
+    <ion-row>
+      <div style="width: 100%;margin: 0 0.41rem 0.41rem 0.41rem;">
+        <div class="card bg-default" (click)="entityWiseData(ITEM.entityName, i)"
+          style="background-color: #343a40 !important;width: 100%;">
+          <div class="card-body text-center"
+            style="padding:1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+
+            <ion-text color="light" style="float: left;"><b style="color: #fff !important;"> {{ITEM.entityName}}</b>
+            </ion-text>
+            <ion-text color="light" style="float: right;"> <b style="color: #fff !important;"> {{ITEM.sign}} </b>
+            </ion-text>
+          </div>
+        </div>
+      </div>
+    </ion-row>
+
+    <ion-row *ngFor="let item of perEntityData">
+
+      <div class="mobile-table" *ngIf="item.entity_name == ITEM.entityName"
+        style="padding:1rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;"
+        style="margin: 0 0.41rem 0 0.41rem;">
+        <div class="mobile-table-inner">
+
+          <div class="mobile-border">
+            <h5>
+              <div class="mobile-file" style="color: #000 !important;"><b
+                  style="color: #000 !important;">{{'Class:' | translate}}</b> <span style="color: #000 !important;">
+                  {{item.class_ref}} {{item.class_grade}} </span></div>
+              <div class="mobile-file" style="color: #000 !important;"><b
+                  style="color: #000 !important;">{{'Subject:' | translate }}</b> <span style="color: #000 !important;">
+                  {{item.subject_name}} </span></div>
+            </h5>
+            <div class="mobile-file" style="color: #000 !important;"><b style="color: #000 !important;">
+                {{ 'File Name:' | translate }}</b> <span style="color: #000 !important;"> {{item.file_name}} </span>
+            </div>
+            <div class="mobile-file" style="color: #000 !important;"><b style="color: #000 !important;">
+                {{'Downloads:' | translate }}</b><span style="color: #000 !important;">{{item.is_download}} </span>
+            </div>
+            <div class="mobile-file mobile-file-priority" style="color: #000 !important;"><b
+                style="color: #000 !important;">
+                {{'File priority:' | translate }}</b><span style="color: #000 !important;">{{item.file_priority}}
+              </span>
+            </div>
+            <div class="mobile-file mobile-file-priority mt-1" style="color: #000 !important;">
+              <b style="color: #000 !important;"> {{'File Size:' | translate}}</b><span
+                style="color: #000 !important;">{{item.file_size}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

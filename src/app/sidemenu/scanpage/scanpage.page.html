@@ -1,0 +1,65 @@
+<!-- 
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{heading}}</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+
+  <div style="width: 0%;margin: 19px;">
+    <div class="card bg-default"
+      style="background-color: #343a40 !important;width: 100%;">
+      <div class="card-body text-center"
+        style="padding:0.5rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+
+        <!-- <ion-text color="light" style="float: left;"><b style="color: #fff !important;"> {{heading}}</b>
+        </ion-text> -->
+
+      </div>
+    </div>
+  </div>
+<!-- 
+  <ion-row radio-group [(ngModel)]="radiobtnValue">
+   
+    <ion-col>
+      <ion-item no-lines>
+        <ion-radio value="in" style="margin: 5px;height: 15px; width: 15px; max-width: 100%; max-height: 100%;">
+        </ion-radio>
+        <ion-label>Arrival</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item no-lines>
+        <ion-radio value="out" ></ion-radio>
+       <ion-label>Departure</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-button color="dark" (click)="scanBarcode()">Scan</ion-button>
+  </ion-row> -->
+
+  <ion-list>
+    <ion-radio-group allow-empty-selection="false" name="radio-group" (ionChange)="radioGroupChange($event)" #radioGroup>
+      <ion-list-header>
+        <ion-label>{{'Select'| translate}}</ion-label>
+      </ion-list-header>
+  
+      <ion-item>
+        <ion-label>{{'Arrival'| translate}}</ion-label>
+        <ion-radio slot="start" checked="true" style="--color-checked: black !important;" value="In"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>{{'Departure'| translate}}</ion-label>
+        <ion-radio slot="start" style="--color-checked: black !important;" value="Out"></ion-radio>
+      </ion-item>
+  
+    </ion-radio-group>
+  
+  </ion-list>
+
+  <ion-button color="dark" (click)="scanBarcode()" style="width: 33%;  margin-left: 30%;  margin-top: 5%;  margin-right: 69%;">
+    {{'Scan'| translate}}
+  </ion-button>
+
+</ion-content>

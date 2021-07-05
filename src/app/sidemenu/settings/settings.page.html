@@ -1,0 +1,43 @@
+<ion-content>
+
+  <div style="width: 0%;margin: 19px;">
+    <div class="card bg-default"
+      style="background-color: #343a40 !important;width: 100%;">
+      <div class="card-body text-center"
+        style="padding:0.5rem; border: 0rem;border-radius: 0.66rem;box-shadow: 0rem 0rem 0.41rem #00000024;">
+
+        <!-- <ion-text color="light" style="float: left;"><b style="color: #fff !important;"> {{heading}}</b>
+        </ion-text> -->
+
+      </div>
+    </div>
+  </div>
+
+  <ion-item>
+    <ion-label style="font-size: 1rem !important;">{{'Continuous Scanning' | translate}}</ion-label>
+    <ion-select (ionCancel)="onCancel()"  okText="{{'SAVE'|translate}}" cancelText="{{'CANCEL'|translate}}"
+      [(ngModel)]="defaultAction" [ngModelOptions]="{standalone: true}" (ionChange)="changeScanAction($event.target.value)"
+      style="font-size: 1rem !important;">
+      <ion-select-option *ngFor="let item of actionList" [value]="item.name">{{item.name}} </ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label style="font-size: 1rem !important;">{{'Camera Selection'| translate}}</ion-label>
+    <ion-select (ionCancel)="onCancel()"  okText="{{'SAVE'|translate}}" cancelText="{{'CANCEL'|translate}}"
+      [(ngModel)]="defaultCamera" [ngModelOptions]="{standalone: true}" (ionChange)="changeCamera($event.target.value)"
+      style="font-size: 1rem !important;">
+      <ion-select-option *ngFor="let item of cameraList" [value]="item.name">{{item.name}} </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="font-size: 1rem !important;">{{'Alarm'| translate}}</ion-label>
+    <ion-select (ionCancel)="onCancel()" okText="{{'SAVE'|translate}}" cancelText="{{'CANCEL'|translate}}"
+      [(ngModel)]="defaultAlarm" [ngModelOptions]="{standalone: true}" (ionChange)="changeScanAlarm($event.target.value)"
+      style="font-size: 1rem !important;">
+      <ion-select-option *ngFor="let item of alarmList" [value]="item.name">{{item.name}} </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+</ion-content>

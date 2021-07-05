@@ -1,0 +1,162 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// Added Bootstrap
+@import './theme/variables';
+@import '../node_modules/@ionic/angular/css/ionic.bundle.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+ion-header{
+    --ion-background-color:rgb(211,211,211);
+ }
+ ion-content ion-list {
+    margin: 0rem !important;
+}
+ion-content ion-list ion-item ion-icon {
+    color: #424242 !important;
+    font-size: 1.00rem;
+}
+ion-content ion-list ion-item ion-label {
+    color: #424242 !important;
+    font-size: 1.2rem !important;
+}
+ion-header ion-title {
+    font-size: 1.33rem;
+    font-weight: 500;
+}
+ion-header ion-menu-button {
+    color: #000;
+    // font-size: 2.5rem;
+    font-size: 1.5rem;
+
+}
+ion-back-button span.button-text {
+    display: none;
+}
+ion-back-button .button-native ion-icon {
+    color: #fff !important;
+}
+ion-back-button{
+    background: transparent !important;
+    color: #fff !important;
+}
+ion-back-button button{
+    background: transparent !important;
+    color: #fff !important;
+}
+ion-header ion-list .icon-inner{
+    margin: 0rem !important;
+    transform: rotate(90deg);
+    cursor: pointer;
+    background: transparent !important;
+}
+ion-header ion-list ion-icon {
+    font-size: 2rem !important;
+}
+ion-popover .popover-content ion-label {
+    font-size: 1.16rem !important;
+    margin: 0rem;
+}
+ion-popover .popover-content ion-select {
+    padding: 0rem 0.24rem 0rem 0rem;
+    font-size: 1.16rem;
+}
+.list-ios {
+    margin-bottom: 0 !important;
+}
+.popover-arrow{
+    z-index: 11;
+}
+.sc-ion-buttons-md-h {
+    position: relative;
+    z-index: 11;
+}
+ion-list {
+    position: relative;
+    z-index: 11;
+}
+.sidebar-name, .heading-white, .subject-name, .sidebar-name svg {
+    color: #fff !important;
+}
+.alert-wrapper.sc-ion-alert-md{
+    width: 95% !important;
+    max-width: 100% !important;
+    margin:0 auto !important;
+}
+.my-custom-class {
+   --spinner-color: rgb(15, 1, 1);
+    color: rgb(15, 1, 1);
+  }
+ 
+  ion-alert {
+    //background 
+    .alert-radio-inner.sc-ion-alert-md
+     {
+        background-color:black;
+        color: white;
+        // font-weight: bold;
+        // font-size: larger;
+      }
+      
+      [aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
+        border-color:black;
+      }
+      .alert-button.sc-ion-alert-md{
+        background-color:black;
+        color: white;
+        min-width: 69px;
+
+      }
+      .alert-button-inner.sc-ion-alert-md{
+        justify-content: center;
+      }
+    
+}
+ion-checkbox{
+    
+    .checkbox-icon{
+        border-color: black;
+        background: black;
+    }
+    svg{
+        border-color: black;
+        background: black; 
+    }
+   
+}
+ion-picker{
+// .picker-button.sc-ion-picker-md, .picker-button.activated.sc-ion-picker-md{
+//     background-color: black;
+// }
+.picker-button.sc-ion-picker-md{
+    background-color: black;
+    color: white;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: 84px;
+}
+}

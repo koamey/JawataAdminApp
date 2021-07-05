@@ -1,0 +1,51 @@
+<ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'Select Entity'| translate}}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    class="text-input" style="font-size: 1rem !important;" [(ngModel)]="defaultEntity" [placeholder]="defaultEntity"
+    (ionChange)="changeEntity($event.target.value)" [ngModelOptions]="{standalone: true}">
+    <ion-select-option *ngFor="let item of entityArr" [value]="item.name_town">{{item.name_town}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<!-- 
+<ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'Select Class' | translate }}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    [(ngModel)]="defaultClass" [placeholder]="defaultClass" (ionChange)="changeClass($event.target.value)"
+    [ngModelOptions]="{standalone: true}" style="font-size: 1rem !important;">
+    <ion-select-option *ngFor="let item of classListArr" [value]="item.ref_grade">{{item.ref_grade}} </ion-select-option>
+  </ion-select>
+</ion-item> -->
+
+<!-- <ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'select subject'| translate}}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    class="text-input" style="font-size: 1rem !important;" [(ngModel)]="defaultSubject" [placeholder]="defaultSubject"
+    (ionChange)="changeSubject($event.target.value)" [ngModelOptions]="{standalone: true}">
+    <ion-select-option *ngFor="let item of subjectListArr" [value]="item.subject_name">{{item.subject_name}}</ion-select-option>
+  </ion-select>
+</ion-item> -->
+
+
+<ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'Continuous Scanning'|translate}}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'SAVE' |translate}}" cancelText="{{'CANCEL'|translate}}"
+    [(ngModel)]="defaultAction" [ngModelOptions]="{standalone: true}" (ionChange)="changeScanAction($event.target.value)"
+    style="font-size: 1rem !important;">
+    <ion-select-option *ngFor="let item of actionList" [value]="item.name">{{item.name}} </ion-select-option>
+  </ion-select>
+</ion-item>
+
+
+<ion-item>
+  <ion-label style="font-size: 1rem !important;">{{'Select Language'|translate}}</ion-label>
+  <ion-select (ionCancel)="onCancel()" okText="{{'OK'|translate}}" cancelText="{{'CANCEL'|translate}}"
+    [(ngModel)]="selectedLanguage" [placeholder]="selectedLanguage" (ionChange)="languageChanged($event.target.value)"
+    [ngModelOptions]="{standalone: true}" style="font-size: 1rem !important;">
+    <ion-select-option value="en">English</ion-select-option>
+    <ion-select-option value="fr">French</ion-select-option>
+    <ion-select-option value="de">German</ion-select-option>
+    <ion-select-option value="hi">Hindi</ion-select-option>
+    <ion-select-option value="es">Spanish</ion-select-option>
+  </ion-select>
+</ion-item>
+

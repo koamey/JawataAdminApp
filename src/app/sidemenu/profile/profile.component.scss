@@ -1,0 +1,42 @@
+.colFontSize{
+    font-size: 0.99rem;
+}
+.loading-content {
+    display: none;
+}
+
+ion-input {
+    border:0.08rem solid black;
+    border-radius: 0.41rem;
+    border-color: darkgrey;
+}
+
+ion-datetime {
+    border:0.08rem solid black;
+    border-radius: 0.41rem;
+    border-color: darkgrey;
+}
+
+ion-item{
+    border-bottom: transparent;
+}
+.icons{
+    vertical-align: middle;
+    font-size: 11.53rem;
+    margin-left: 3.33rem;
+}
+.sso-title ion-title{
+    padding: 0rem 10.41rem;
+    text-align: left;
+}
+.ion-color-primary{
+    --ion-color-base: #343a40!important;
+}
+$colors: (
+    primary:#343a40,
+    ion-color-base: #343a40 !important,
+);
+
+.alert-2-hdr{
+    font-size: 5.97rem;
+}

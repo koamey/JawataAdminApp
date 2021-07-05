@@ -1,0 +1,38 @@
+<!-- <app-header *ngIf="header" [heading]="heading"></app-header> -->
+<ion-header>
+  <ion-toolbar color="primary">
+    
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> <b style="font-size:1rem;color: #fff;" class="heading-white">{{heading}}</b>
+    </ion-buttons>    
+    <ion-list slot="end">
+      <b style="color: #fff !important;">
+        <ion-icon slot="end" (click)="showPopUp($event)" style="vertical-align:middle;font-size:2.5rem; color: #fff !important;" name="more">
+        </ion-icon>
+      </b>
+    </ion-list>
+  
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-tabs  #tabs (ionTabsDidChange)="tabChange(tabs)">
+  <!-- <ion-tabs> -->
+   <ion-tab-bar slot="bottom">
+   <ion-tab-button tab="scanpage" (ionSelect)="ionSelected()" layout="icon-top">
+      <ion-icon name="qr-scanner"></ion-icon>
+      <ion-label>{{'Scan' | translate}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="history" (ionSelect)="ionSelected()" layout="icon-top">
+      <ion-icon name="list-box"></ion-icon>
+      <ion-label>{{'History'| translate}}</ion-label>
+    </ion-tab-button> 
+
+    <ion-tab-button tab="settings" layout="icon-top">
+      <ion-icon name="md-settings"></ion-icon>
+      <ion-label>{{'Settings'| translate}}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

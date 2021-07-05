@@ -1,0 +1,35 @@
+ion-toolbar{
+    --ion-background-color:#343a40 !important;
+    color: #fff !important;
+}
+ion-toolbar{
+    background-color:#343a40 !important;
+}
+ion-header ion-menu-button {
+    color: #fff !important;
+    font-size: 2rem;
+}
+.toolbar-background {
+    background: #343a40 !important;
+    position: relative;
+}
+.toolbar-background, ::slotted(ion-progress-bar) {
+    position: relative;
+}
+ion-list ion-label {
+    font-size: 1.16rem !important;
+    color: #000 !important;
+}
+ion-list {
+    margin: 0rem !important;
+}
+:host {
+    --background: var(--ion-toolbar-background,var(--ion-color-step-50,#343a40 !important)) !important;
+}
+.ion-color-primary{
+    --ion-color-base: #343a40!important;
+}
+$colors: (
+    primary:#343a40,
+    ion-color-base: #343a40 !important,
+)

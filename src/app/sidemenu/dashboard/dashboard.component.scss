@@ -1,0 +1,155 @@
+.col{
+    --ion-background-color:rgb(66, 66, 66);
+    padding:1.25rem;
+    
+}
+
+ion-toolbar{
+    --ion-background-color:gray !important;
+}
+
+.progress-bar {
+    background-color: black !important;
+}
+
+ion-content .progress {
+    height: 1.16rem;
+    border-radius: 4.16rem;
+}
+ion-content .progress .progress-bar {
+    height: 100%;
+}
+ion-content ion-text {
+    font-size: 0.875rem;
+}
+ion-content .card .progress-value {
+    width: 100%;
+    text-align: center;
+    line-height: 0.99rem;
+}
+ion-content .card ion-text{
+    color:#fff !important;
+}
+.mobile-table {
+    width: 100%;
+    float: left;
+}
+
+
+.mobile-table .mobile-table-inner {
+    width: 100%;
+    float: left;
+    margin: 0.50rem 0;
+    box-shadow: 0 0 0.83rem #0003;
+    padding: 1.25rem;
+    border-radius: 0.33rem;
+    border:0.08rem solid black
+}
+
+// new style for new design
+.mobile-table .mobile-table-inner .mobile-border {
+    width: 100%;
+    float: left;
+    border-bottom: 0.08rem solid #D6D6D6;
+    margin-bottom: 1.25rem;
+}
+.mobile-table .mobile-table-inner .mobile-border h5 {
+    margin-top: 0rem;
+    color: #000 !important;
+    font-family: 'arimoregular';
+    font-size: 1.20rem;
+    margin-bottom: 0.66rem;
+}
+.mobile-table .mobile-table-inner .mobile-border h5 span{
+	margin-left: 0.41rem;
+}
+.mobile-table .mobile-table-inner .mobile-border .mobile-file {
+    width: 100%;
+    float: left;
+    margin-bottom: 0.30rem;
+    font-size: 1rem;
+}
+.mobile-table .mobile-table-inner .mobile-border .mobile-file b, .mobile-table .mobile-table-inner .mobile-border .mobile-file span{
+    font-size: 0.9rem;
+}
+.mobile-table .mobile-table-inner .mobile-border .mobile-file span {
+    margin-left: 0.41rem;
+}
+.mobile-table .mobile-table-inner .mobile-border .mobile-file.mobile-file-priority{
+	margin-bottom:1.25rem
+}
+.mobile-table .mobile-table-inner .mobile-border:last-child {
+    border: 0;
+    margin: 0;
+}
+
+.mobile-table .mobile-table-inner .mobile-border:last-child .mobile-file.mobile-file-priority{
+margin-bottom:0;
+}
+
+.card-body{
+    padding: 0.80rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .mobile-table .mobile-table-inner {
+//     width: 100%;
+//     float: left;
+//     margin: 10px 0;
+//     box-shadow: 0 0 10px #0003;
+//     padding: 15px;
+//     border-radius: 4px;
+//     border:1px solid black
+// }
+
+
+// // new style for new design
+// .mobile-table .mobile-table-inner .mobile-border {
+//     width: 100%;
+//     float: left;
+//     border-bottom: 1px solid #D6D6D6;
+//     margin-bottom: 15px;
+// }
+// .mobile-table .mobile-table-inner .mobile-border h5 {
+//     margin-top: 0;
+//     color: #0CB1E3;
+//     font-family: 'arimoregular';
+//     font-size: 16px;
+//     margin-bottom: 8px;
+// }
+// .mobile-table .mobile-table-inner .mobile-border h5 span{
+// 	margin-left: 5px;
+// }
+// .mobile-table .mobile-table-inner .mobile-border .mobile-file {
+//     width: 100%;
+//     float: left;
+//     margin-bottom: 8px;
+//     font-size: 14px;
+// }
+// .mobile-table .mobile-table-inner .mobile-border .mobile-file span {
+//     margin-left: 5px;
+// }
+// .mobile-table .mobile-table-inner .mobile-border .mobile-file.mobile-file-priority{
+// 	margin-bottom:15px
+// }
+// .mobile-table .mobile-table-inner .mobile-border:last-child {
+//     border: 0;
+//     margin: 0;
+// }
+
+// .mobile-table .mobile-table-inner .mobile-border:last-child .mobile-file.mobile-file-priority{
+// margin-bottom:0;
+// }

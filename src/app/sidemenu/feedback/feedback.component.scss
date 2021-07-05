@@ -1,0 +1,49 @@
+#btn{
+    color: white; border-radius: 0.41rem; width: 6.66rem; height: 3.33rem; 
+    background-color: darkgray;  
+    color: black;
+    background-color: white;  
+    margin: auto;
+}
+#datedisplay
+{
+display: none;
+}
+// ion-toolbar{
+//     --ion-background-color:gray;
+// }
+ion-textarea {
+    width: 100% !important;
+    margin: 2% !important;
+}
+ion-input, input {
+    padding: 0rem !important;
+    font-size: 1rem !important;
+}
+input{
+    padding: 0rem !important;
+}
+.submit button {
+    width: 100% !important;
+    background: #343a40 !important;
+}
+.submit.cancel button {
+    background: transparent !important;
+    color: #343a40 !important;
+    border: 0.08rem solid #343a40;
+}
+input.native-input {
+    padding: 0rem !important;
+    opacity: 0.44rem !important;
+}
+.submit ion-icon, .cancel ion-icon{
+    width: 2rem !important;
+    height: 2rem !important;
+    background: #000 !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+    padding: 0.83rem;
+}
+.char-input .native-input{
+    padding: 0rem;
+}
