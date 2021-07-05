@@ -64,8 +64,8 @@
 @property (nonatomic, readwrite, copy) NSString* baseUserAgent;
 
 /**
-	Takes/Gives an array of UIInterfaceOrientation (int) objects
-	ex. UIInterfaceOrientationPortrait
+    Takes/Gives an array of UIInterfaceOrientation (int) objects
+    ex. UIInterfaceOrientationPortrait
 */
 @property (nonatomic, readwrite, strong) NSArray* supportedOrientations;
 

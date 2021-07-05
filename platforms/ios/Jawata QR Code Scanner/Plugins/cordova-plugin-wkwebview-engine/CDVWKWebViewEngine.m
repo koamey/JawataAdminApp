@@ -265,7 +265,6 @@ static void * KVOContext = &KVOContext;
 
     NSString* decelerationSetting = [settings cordovaSettingForKey:@"WKWebViewDecelerationSpeed"];
     if (!decelerationSetting) {
-        // Fallback to the UIWebView-named preference
         decelerationSetting = [settings cordovaSettingForKey:@"UIWebViewDecelerationSpeed"];
     }
 
@@ -313,7 +312,6 @@ static void * KVOContext = &KVOContext;
 }
 
 // This forwards the methods that are in the header that are not implemented here.
-// Both WKWebView and UIWebView implement the below:
 //     loadHTMLString:baseURL:
 //     loadRequest:
 - (id)forwardingTargetForSelector:(SEL)aSelector
